@@ -16,6 +16,26 @@ use InvalidArgumentException;
 trait EntrustUserTrait
 {
     /**
+     * Boot the user model
+     * Attach event listener to remove the many-to-many records when trying to delete
+     * Will NOT delete any records if the user model uses soft deletes.
+     *
+     * @return void|bool
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function($user) {
+            if (!method_exists(Config::get('auth.providers.users.model'), 'bootSoftDeletes')) {
+                $user->roles()->sync([]);
+            }
+
+            return true;
+        });
+    }
+
+    /**
      * Big block of caching functionality.
      *
      * @return mixed Roles
@@ -74,27 +94,17 @@ trait EntrustUserTrait
      */
     public function roles()
     {
-        return $this->belongsToMany(Config::get('entrust.role'), Config::get('entrust.role_user_table'), Config::get('entrust.user_foreign_key'), Config::get('entrust.role_foreign_key'));
+        return $this->morphToMany(Config::get('entrust.role'), "roleable" );
     }
 
     /**
-     * Boot the user model
-     * Attach event listener to remove the many-to-many records when trying to delete
-     * Will NOT delete any records if the user model uses soft deletes.
+     * Many-to-Many relations with Role.
      *
-     * @return void|bool
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public static function boot()
+    public function perms()
     {
-        parent::boot();
-
-        static::deleting(function($user) {
-            if (!method_exists(Config::get('auth.providers.users.model'), 'bootSoftDeletes')) {
-                $user->roles()->sync([]);
-            }
-
-            return true;
-        });
+        return $this->morphToMany( Config::get('entrust.permission'), "permissionable" );
     }
 
     /**
@@ -123,8 +133,9 @@ trait EntrustUserTrait
             // Return the value of $requireAll;
             return $requireAll;
         } else {
+            
             foreach ($this->cachedRoles() as $role) {
-                if ($role->name == $name) {
+                if ($role->name == ( is_object( $name ) ? $name->name : $name ) )  {
                     return true;
                 }
             }

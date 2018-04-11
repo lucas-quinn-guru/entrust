@@ -1,9 +1,13 @@
-<?php namespace Zizaco\Entrust\Traits;
+<?php
+
+namespace Zizaco\Entrust\Traits;
 
 /**
  * This file is part of Entrust,
  * a role & permission management solution for Laravel.
  *
+ * @author mbarrus
+ * 
  * @license MIT
  * @package Zizaco\Entrust
  */
@@ -14,6 +18,48 @@ use Illuminate\Support\Facades\Cache;
 
 trait EntrustRoleTrait
 {
+    /**
+     * Boot the role model
+     * Attach event listener to remove the many-to-many records when trying to delete
+     * Will NOT delete any records if the role model uses soft deletes.
+     *
+     * @return void|bool
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($role) {
+            if (!method_exists(Config::get('entrust.role'), 'bootSoftDeletes')) {
+                $role->users()->sync([]);
+                $role->perms()->sync([]);
+            }
+
+            return true;
+        });
+    }
+    
+    /**
+     * Many-to-Many relations with the user model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->morphedByMany( Config::get( 'auth.providers.users.model'), "roleable" );
+    }
+
+    /**
+     * Many-to-Many relations with the permission model.
+     * Named "perms" for backwards compatibility. Also because "perms" is short and sweet.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function perms()
+    {
+        return $this->morphedByMany( Config::get('entrust.permission'), "roleable" );
+    }
+
     //Big block of caching functionality.
     public function cachedPermissions()
     {
@@ -59,47 +105,7 @@ trait EntrustRoleTrait
         return true;
     }
 
-    /**
-     * Many-to-Many relations with the user model.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function users()
-    {
-        return $this->belongsToMany(Config::get('auth.providers.users.model'), Config::get('entrust.role_user_table'), Config::get('entrust.role_foreign_key'), Config::get('entrust.user_foreign_key'));
-    }
-
-    /**
-     * Many-to-Many relations with the permission model.
-     * Named "perms" for backwards compatibility. Also because "perms" is short and sweet.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function perms()
-    {
-        return $this->belongsToMany(Config::get('entrust.permission'), Config::get('entrust.permission_role_table'), Config::get('entrust.role_foreign_key'), Config::get('entrust.permission_foreign_key'));
-    }
-
-    /**
-     * Boot the role model
-     * Attach event listener to remove the many-to-many records when trying to delete
-     * Will NOT delete any records if the role model uses soft deletes.
-     *
-     * @return void|bool
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($role) {
-            if (!method_exists(Config::get('entrust.role'), 'bootSoftDeletes')) {
-                $role->users()->sync([]);
-                $role->perms()->sync([]);
-            }
-
-            return true;
-        });
-    }
+    
 
     /**
      * Checks if the role has a permission by its name.

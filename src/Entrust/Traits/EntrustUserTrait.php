@@ -58,14 +58,14 @@ trait EntrustUserTrait
     /**
      * {@inheritDoc}
      */
-    public function restore()
-    {   //soft delete undo's
-        $result = parent::restore();
-        if(Cache::getStore() instanceof TaggableStore) {
-            Cache::tags(Config::get('entrust.role_user_table'))->flush();
-        }
-        return $result;
-    }
+    //public function restore()
+    //{   //soft delete undo's
+    //    $result = parent::restore();
+    //    if(Cache::getStore() instanceof TaggableStore) {
+    //        Cache::tags(Config::get('entrust.role_user_table'))->flush();
+    //    }
+    //    return $result;
+    //}
 
     /**
      * Many-to-Many relations with Role.

@@ -7,7 +7,7 @@ namespace Zizaco\Entrust\Traits;
  * a role & permission management solution for Laravel.
  *
  * @author mbarrus
- * 
+ *
  * @license MIT
  * @package Zizaco\Entrust
  */
@@ -46,7 +46,7 @@ trait EntrustRoleTrait
      */
     public function users()
     {
-        return $this->morphedByMany( Config::get( 'auth.providers.users.model'), "roleable" );
+        return $this->morphedByMany(Config::get('auth.providers.users.model'), "roleable");
     }
 
     /**
@@ -57,7 +57,7 @@ trait EntrustRoleTrait
      */
     public function perms()
     {
-        return $this->morphedByMany( Config::get('entrust.permission'), "roleable" );
+        return $this->morphedByMany(Config::get('entrust.permission'), "roleable");
     }
 
     //Big block of caching functionality.
@@ -66,16 +66,18 @@ trait EntrustRoleTrait
         $rolePrimaryKey = $this->primaryKey;
         $cacheKey = 'entrust_permissions_for_role_' . $this->$rolePrimaryKey;
         if (Cache::getStore() instanceof TaggableStore) {
-            return Cache::tags(Config::get('entrust.permission_role_table'))->remember($cacheKey, Config::get('cache.ttl', 60), function () {
-                return $this->perms()->get();
-            });
+            return Cache::tags(Config::get('entrust.permission_role_table'))
+                ->remember($cacheKey, Config::get('cache.ttl', 60), function () {
+                    return $this->perms()->get();
+                });
         } else {
             return $this->perms()->get();
         }
     }
 
     public function save(array $options = [])
-    {   //both inserts and updates
+    {
+        //both inserts and updates
         if (!parent::save($options)) {
             return false;
         }
@@ -98,7 +100,8 @@ trait EntrustRoleTrait
     }
 
     public function restore()
-    {   //soft delete undo's
+    {
+        //soft delete undo's
         if (!parent::restore()) {
             return false;
         }
@@ -229,7 +232,9 @@ trait EntrustRoleTrait
      */
     public function detachPermissions($permissions = null)
     {
-        if (!$permissions) $permissions = $this->perms()->get();
+        if (!$permissions) {
+            $permissions = $this->perms()->get();
+        }
 
         foreach ($permissions as $permission) {
             $this->detachPermission($permission);

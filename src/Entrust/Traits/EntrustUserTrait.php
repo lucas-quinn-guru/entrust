@@ -1,8 +1,12 @@
-<?php namespace Zizaco\Entrust\Traits;
+<?php
+
+namespace Zizaco\Entrust\Traits;
 
 /**
  * This file is part of Entrust,
  * a role & permission management solution for Laravel.
+ *
+ * @author mbarrus
  *
  * @license MIT
  * @package Zizaco\Entrust
@@ -24,20 +28,23 @@ trait EntrustUserTrait
     {
         $userPrimaryKey = $this->primaryKey;
         $cacheKey = 'entrust_roles_for_user_'.$this->$userPrimaryKey;
-        if(Cache::getStore() instanceof TaggableStore) {
-            return Cache::tags(Config::get('entrust.role_user_table'))->remember($cacheKey, Config::get('cache.ttl'), function () {
-                return $this->roles()->get();
-            });
+        if (Cache::getStore() instanceof TaggableStore) {
+            return Cache::tags(Config::get('entrust.role_user_table'))
+                ->remember($cacheKey, Config::get('cache.ttl'), function () {
+                    return $this->roles()->get();
+                });
+        } else {
+            return $this->roles()->get();
         }
-        else return $this->roles()->get();
     }
 
     /**
      * {@inheritDoc}
      */
     public function save(array $options = [])
-    {   //both inserts and updates
-        if(Cache::getStore() instanceof TaggableStore) {
+    {
+        //both inserts and updates
+        if (Cache::getStore() instanceof TaggableStore) {
             Cache::tags(Config::get('entrust.role_user_table'))->flush();
         }
         return parent::save($options);
@@ -47,9 +54,10 @@ trait EntrustUserTrait
      * {@inheritDoc}
      */
     public function delete(array $options = [])
-    {   //soft or hard
+    {
+        //soft or hard
         $result = parent::delete($options);
-        if(Cache::getStore() instanceof TaggableStore) {
+        if (Cache::getStore() instanceof TaggableStore) {
             Cache::tags(Config::get('entrust.role_user_table'))->flush();
         }
         return $result;
@@ -57,15 +65,18 @@ trait EntrustUserTrait
 
     /**
      * {@inheritDoc}
+     *
+     * mbarrus
      */
-    public function restore()
-    {   //soft delete undo's
-        $result = parent::restore();
-        if(Cache::getStore() instanceof TaggableStore) {
-            Cache::tags(Config::get('entrust.role_user_table'))->flush();
-        }
-        return $result;
-    }
+    //public function restore()
+    //{
+        //soft delete undo's
+    //    $result = parent::restore();
+    //    if (Cache::getStore() instanceof TaggableStore) {
+    //        Cache::tags(Config::get('entrust.role_user_table'))->flush();
+    //    }
+    //    return $result;
+    //}
 
     /**
      * Many-to-Many relations with Role.
@@ -74,7 +85,12 @@ trait EntrustUserTrait
      */
     public function roles()
     {
-        return $this->belongsToMany(Config::get('entrust.role'), Config::get('entrust.role_user_table'), Config::get('entrust.user_foreign_key'), Config::get('entrust.role_foreign_key'));
+        return $this->belongsToMany(
+            Config::get('entrust.role'),
+            Config::get('entrust.role_user_table'),
+            Config::get('entrust.user_foreign_key'),
+            Config::get('entrust.role_foreign_key')
+        );
     }
 
     /**
@@ -88,7 +104,7 @@ trait EntrustUserTrait
     {
         parent::boot();
 
-        static::deleting(function($user) {
+        static::deleting(function ($user) {
             if (!method_exists(Config::get('auth.providers.users.model'), 'bootSoftDeletes')) {
                 $user->roles()->sync([]);
             }
@@ -224,8 +240,8 @@ trait EntrustUserTrait
         // If validate all and there is a false in either
         // Check that if validate all, then there should not be any false.
         // Check that if not validate all, there must be at least one true.
-        if(($options['validate_all'] && !(in_array(false,$checkedRoles) || in_array(false,$checkedPermissions))) ||
-            (!$options['validate_all'] && (in_array(true,$checkedRoles) || in_array(true,$checkedPermissions)))) {
+        if (($options['validate_all'] && !(in_array(false, $checkedRoles) || in_array(false, $checkedPermissions))) ||
+            (!$options['validate_all'] && (in_array(true, $checkedRoles) || in_array(true, $checkedPermissions)))) {
             $validateAll = true;
         } else {
             $validateAll = false;
@@ -249,11 +265,11 @@ trait EntrustUserTrait
      */
     public function attachRole($role)
     {
-        if(is_object($role)) {
+        if (is_object($role)) {
             $role = $role->getKey();
         }
 
-        if(is_array($role)) {
+        if (is_array($role)) {
             $role = $role['id'];
         }
 
@@ -295,9 +311,11 @@ trait EntrustUserTrait
      *
      * @param mixed $roles
      */
-    public function detachRoles($roles=null)
+    public function detachRoles($roles = null)
     {
-        if (!$roles) $roles = $this->roles()->get();
+        if (!$roles) {
+            $roles = $this->roles()->get();
+        }
 
         foreach ($roles as $role) {
             $this->detachRole($role);
@@ -305,15 +323,14 @@ trait EntrustUserTrait
     }
 
     /**
-     *Filtering users according to their role 
+     * Filtering users according to their role
      *
      *@param string $role
      *@return users collection
      */
     public function scopeWithRole($query, $role)
     {
-        return $query->whereHas('roles', function ($query) use ($role)
-        {
+        return $query->whereHas('roles', function ($query) use ($role) {
             $query->where('name', $role);
         });
     }

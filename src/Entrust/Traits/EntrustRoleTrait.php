@@ -23,7 +23,9 @@ trait EntrustRoleTrait
             return Cache::tags(Config::get('entrust.permission_role_table'))->remember($cacheKey, Config::get('cache.ttl', 60), function () {
                 return $this->perms()->get();
             });
-        } else return $this->perms()->get();
+        } else {
+            return $this->perms()->get();
+        }
     }
 
     public function save(array $options = [])
@@ -38,7 +40,8 @@ trait EntrustRoleTrait
     }
 
     public function delete(array $options = [])
-    {   //soft or hard
+    {
+        //soft or hard
         if (!parent::delete($options)) {
             return false;
         }

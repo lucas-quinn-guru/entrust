@@ -99,17 +99,17 @@ trait EntrustRoleTrait
         return true;
     }
 
-    public function restore()
-    {
-        //soft delete undo's
-        if (!parent::restore()) {
-            return false;
-        }
-        if (Cache::getStore() instanceof TaggableStore) {
-            Cache::tags(Config::get('entrust.permission_role_table'))->flush();
-        }
-        return true;
-    }
+    //public function restore()
+   //{
+     //   //soft delete undo's
+     //   if (!parent::restore()) {
+     ////       return false;
+     //   }
+    //    if (Cache::getStore() instanceof TaggableStore) {
+    //        Cache::tags(Config::get('entrust.permission_role_table'))->flush();
+     //   }
+     //   return true;
+    //}
 
     
 

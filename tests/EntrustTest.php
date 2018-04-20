@@ -1,6 +1,6 @@
 <?php
 
-use Zizaco\Entrust\Entrust;
+use LucasQuinnGuru\Entrust\Entrust;
 use Illuminate\Support\Facades\Facade;
 use Mockery as m;
 
@@ -14,7 +14,7 @@ class EntrustTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->nullFilterTest = function($filterClosure) {
+        $this->nullFilterTest = function ($filterClosure) {
             if (!($filterClosure instanceof Closure)) {
                 return false;
             }
@@ -24,7 +24,7 @@ class EntrustTest extends PHPUnit_Framework_TestCase
             return true;
         };
 
-        $this->abortFilterTest = function($filterClosure) {
+        $this->abortFilterTest = function ($filterClosure) {
             if (!($filterClosure instanceof Closure)) {
                 return false;
             }
@@ -41,7 +41,7 @@ class EntrustTest extends PHPUnit_Framework_TestCase
             return false;
         };
 
-        $this->customResponseFilterTest = function($filterClosure) {
+        $this->customResponseFilterTest = function ($filterClosure) {
             if (!($filterClosure instanceof Closure)) {
                 return false;
             }
@@ -67,7 +67,7 @@ class EntrustTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
         $app = new stdClass();
-        $entrust = m::mock('Zizaco\Entrust\Entrust[user]', [$app]);
+        $entrust = m::mock('LucasQuinnGuru\Entrust\Entrust[user]', [$app]);
         $user = m::mock('_mockedUser');
 
         /*
@@ -111,7 +111,7 @@ class EntrustTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
         $app = new stdClass();
-        $entrust = m::mock('Zizaco\Entrust\Entrust[user]', [$app]);
+        $entrust = m::mock('LucasQuinnGuru\Entrust\Entrust[user]', [$app]);
         $user = m::mock('_mockedUser');
 
         /*
@@ -351,7 +351,7 @@ class EntrustTest extends PHPUnit_Framework_TestCase
         // Mock Objects
         $app         = m::mock('Illuminate\Foundation\Application');
         $app->router = m::mock('Route');
-        $entrust     = m::mock("Zizaco\Entrust\Entrust[$mockedMethod]", [$app]);
+        $entrust     = m::mock("LucasQuinnGuru\Entrust\Entrust[$mockedMethod]", [$app]);
 
         // Static values
         $route       = 'route';
@@ -397,11 +397,16 @@ class EntrustTest extends PHPUnit_Framework_TestCase
      * @dataProvider routeNeedsRoleOrPermissionFilterDataProvider
      */
     public function testFilterGeneratedByRouteNeedsRoleOrPermission(
-        $roleIsValid, $permIsValid, $filterTest, $requireAll = false, $abort = false, $expectedResponse = null
+        $roleIsValid,
+        $permIsValid,
+        $filterTest,
+        $requireAll = false,
+        $abort = false,
+        $expectedResponse = null
     ) {
         $app         = m::mock('Illuminate\Foundation\Application');
         $app->router = m::mock('Route');
-        $entrust     = m::mock('Zizaco\Entrust\Entrust[hasRole, can]', [$app]);
+        $entrust     = m::mock('LucasQuinnGuru\Entrust\Entrust[hasRole, can]', [$app]);
 
         // Static values
         $route      = 'route';

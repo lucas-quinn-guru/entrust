@@ -1,6 +1,6 @@
 <?php
 
-namespace Zizaco\Entrust\Traits;
+namespace LucasQuinnGuru\Entrust\Traits;
 
 /**
  * This file is part of Entrust,
@@ -9,7 +9,7 @@ namespace Zizaco\Entrust\Traits;
  * @author mbarrus
  *
  * @license MIT
- * @package Zizaco\Entrust
+ * @package LucasQuinnGuru\Entrust
  */
 
 use Illuminate\Cache\TaggableStore;

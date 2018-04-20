@@ -40,19 +40,19 @@ contains the latest entrust version for Laravel 4.
 1) In order to install Laravel 5 Entrust, just add the following to your composer.json. Then run `composer update`:
 
 ```json
-"zizaco/entrust": "5.2.x-dev"
+"LucasQuinnGuru/entrust": "5.2.x-dev"
 ```
 
 2) Open your `config/app.php` and add the following to the `providers` array:
 
 ```php
-Zizaco\Entrust\EntrustServiceProvider::class,
+LucasQuinnGuru\Entrust\EntrustServiceProvider::class,
 ```
 
 3) In the same `config/app.php` and add the following to the `aliases ` array: 
 
 ```php
-'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+'Entrust'   => LucasQuinnGuru\Entrust\EntrustFacade::class,
 ```
 
 4) Run the command below to publish the package config file `config/entrust.php`:
@@ -76,9 +76,9 @@ php artisan vendor:publish
 6)  If you want to use [Middleware](#middleware) (requires Laravel 5.1 or later) you also need to add the following:
 
 ```php
-    'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
-    'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
-    'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+    'role' => \LucasQuinnGuru\Entrust\Middleware\EntrustRole::class,
+    'permission' => \LucasQuinnGuru\Entrust\Middleware\EntrustPermission::class,
+    'ability' => \LucasQuinnGuru\Entrust\Middleware\EntrustAbility::class,
 ```
 
 to `routeMiddleware` array in `app/Http/Kernel.php`.
@@ -120,7 +120,7 @@ Create a Role model inside `app/models/Role.php` using the following example:
 ```php
 <?php namespace App;
 
-use Zizaco\Entrust\EntrustRole;
+use LucasQuinnGuru\Entrust\EntrustRole;
 
 class Role extends EntrustRole
 {
@@ -141,7 +141,7 @@ Create a Permission model inside `app/models/Permission.php` using the following
 ```php
 <?php namespace App;
 
-use Zizaco\Entrust\EntrustPermission;
+use LucasQuinnGuru\Entrust\EntrustPermission;
 
 class Permission extends EntrustPermission
 {
@@ -162,7 +162,7 @@ Next, use the `EntrustUserTrait` trait in your existing `User` model. For exampl
 ```php
 <?php
 
-use Zizaco\Entrust\Traits\EntrustUserTrait;
+use LucasQuinnGuru\Entrust\Traits\EntrustUserTrait;
 
 class User extends Eloquent
 {
@@ -532,7 +532,7 @@ When trying to use the EntrustUserTrait methods, you encounter the error which l
 
 then probably you don't have published Entrust assets or something went wrong when you did it.
 First of all check that you have the `entrust.php` file in your `config` directory.
-If you don't, then try `php artisan vendor:publish` and, if it does not appear, manually copy the `/vendor/zizaco/entrust/src/config/config.php` file in your config directory and rename it `entrust.php`.
+If you don't, then try `php artisan vendor:publish` and, if it does not appear, manually copy the `/vendor/lucase-quinn-guru/entrust/src/config/config.php` file in your config directory and rename it `entrust.php`.
 
 If your app uses a custom namespace then you'll need to tell entrust where your `permission` and `role` models are, you can do this by editing the config file in `config/entrust.php`
 

@@ -1,16 +1,12 @@
 # ENTRUST (Laravel 5 Package)
 
-[![Build Status](https://travis-ci.org/Zizaco/entrust.svg)](https://travis-ci.org/Zizaco/entrust)
-[![Version](https://img.shields.io/packagist/v/Zizaco/entrust.svg)](https://packagist.org/packages/zizaco/entrust)
-[![License](https://poser.pugx.org/zizaco/entrust/license.svg)](https://packagist.org/packages/zizaco/entrust)
-[![Total Downloads](https://img.shields.io/packagist/dt/zizaco/entrust.svg)](https://packagist.org/packages/zizaco/entrust)
-
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/cc4af966-809b-4fbc-b8b2-bb2850e6711e/small.png)](https://insight.sensiolabs.com/projects/cc4af966-809b-4fbc-b8b2-bb2850e6711e)
+[![Version](https://img.shields.io/packagist/v/lucas-quinn-guru/entrust.svg)](https://packagist.org/packages/lucas-quinn-guru/entrust)
+[![License](https://poser.pugx.org/lucas-quinn-guru/entrust/license.svg)](https://packagist.org/packages/lucas-quinn-guru/entrust)
+[![Total Downloads](https://img.shields.io/packagist/dt/lucas-quinn-guru/entrust.svg)](https://packagist.org/packages/lucas-quinn-guru/entrust)
 
 Entrust is a succinct and flexible way to add Role-based Permissions to **Laravel 5**.
 
-If you are looking for the Laravel 4 version, take a look [Branch 1.0](https://github.com/Zizaco/entrust/tree/1.0). It
-contains the latest entrust version for Laravel 4.
+This is a fork from zizaco/entrust.
 
 ## Contents
 

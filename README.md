@@ -1,6 +1,6 @@
 # ENTRUST (Laravel 5.6 Package)
 
-[![Version](https://img.shields.io/packagist/v/lucas-quinn-guru/entrust.svg)](https://packagist.org/packages/lucas-quinn-guru/entrust)
+[![Version](https://img.shields.io/packagist/v1/lucas-quinn-guru/entrust.svg)](https://packagist.org/packages/lucas-quinn-guru/entrust)
 [![License](https://poser.pugx.org/lucas-quinn-guru/entrust/license.svg)](https://packagist.org/packages/lucas-quinn-guru/entrust)
 [![Total Downloads](https://img.shields.io/packagist/dt/lucas-quinn-guru/entrust.svg)](https://packagist.org/packages/lucas-quinn-guru/entrust)
 

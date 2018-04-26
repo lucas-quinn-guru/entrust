@@ -1,4 +1,4 @@
-# ENTRUST (Laravel 5 Package)
+# ENTRUST (Laravel 5.6 Package)
 
 [![Version](https://img.shields.io/packagist/v/lucas-quinn-guru/entrust.svg)](https://packagist.org/packages/lucas-quinn-guru/entrust)
 [![License](https://poser.pugx.org/lucas-quinn-guru/entrust/license.svg)](https://packagist.org/packages/lucas-quinn-guru/entrust)
@@ -33,10 +33,10 @@ This is a fork from zizaco/entrust.
 
 ## Installation
 
-1) In order to install Laravel 5 Entrust, just add the following to your composer.json. Then run `composer update`:
+1) In order to install Laravel 5.6 Entrust, just add the following to your composer.json. Then run `composer update`:
 
 ```json
-"LucasQuinnGuru/entrust": "5.2.x-dev"
+"LucasQuinnGuru/entrust": "2.0.x-dev"
 ```
 
 2) Open your `config/app.php` and add the following to the `providers` array:

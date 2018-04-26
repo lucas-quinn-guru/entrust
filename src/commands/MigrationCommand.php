@@ -1,13 +1,13 @@
 <?php
 
-namespace Zizaco\Entrust;
+namespace LucasQuinnGuru\Entrust;
 
 /**
  * This file is part of Entrust,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Zizaco\Entrust
+ * @package LucasQuinnGuru\Entrust
  */
 
 use Illuminate\Console\Command;
@@ -54,7 +54,7 @@ class MigrationCommand extends Command
         $permissionRoleTable = Config::get('entrust.permission_role_table');
 
         $this->line('');
-        $this->info( "Tables: $rolesTable, $roleUserTable, $permissionsTable, $permissionRoleTable" );
+        $this->info("Tables: $rolesTable, $roleUserTable, $permissionsTable, $permissionRoleTable");
 
         $message = "A migration that creates '$rolesTable', '$roleUserTable', '$permissionsTable', '$permissionRoleTable'".
         " tables will be created in database/migrations directory";
@@ -63,12 +63,10 @@ class MigrationCommand extends Command
         $this->line('');
 
         if ($this->confirm("Proceed with the migration creation? [Yes|no]", "Yes")) {
-
             $this->line('');
 
             $this->info("Creating migration...");
             if ($this->createMigration($rolesTable, $roleUserTable, $permissionsTable, $permissionRoleTable)) {
-
                 $this->info("Migration successfully created!");
             } else {
                 $this->error(

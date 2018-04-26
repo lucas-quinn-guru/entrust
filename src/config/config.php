@@ -5,7 +5,7 @@
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Zizaco\Entrust
+ * @package LucasQuinnGuru\Entrust
  */
 
 return [
@@ -73,7 +73,7 @@ return [
     | database.
     |
     */
-    'role_user_table' => 'role_user',
+    'role_user_table' => 'roleables',
 
     /*
     |--------------------------------------------------------------------------
@@ -84,7 +84,7 @@ return [
     | relation between roles and users
     |
     */
-    'user_foreign_key' => 'user_id',
+    'user_foreign_key' => 'roleable_id',
 
     /*
     |--------------------------------------------------------------------------
@@ -117,7 +117,7 @@ return [
     | between permissions and roles to the database.
     |
     */
-    'permission_role_table' => 'permission_role',
+    'permission_role_table' => 'permissionables',
 
     /*
     |--------------------------------------------------------------------------
@@ -128,5 +128,5 @@ return [
     | relation between permissions and roles
     |
     */
-    'permission_foreign_key' => 'permission_id',
+    'permission_foreign_key' => 'permissionable_id',
 ];

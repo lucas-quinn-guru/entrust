@@ -1,11 +1,13 @@
-<?php namespace Zizaco\Entrust;
+<?php
+
+namespace LucasQuinnGuru\Entrust;
 
 /**
  * This file is part of Entrust,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Zizaco\Entrust
+ * @package LucasQuinnGuru\Entrust
  */
 
 use Illuminate\Support\Facades\Facade;

@@ -1,11 +1,13 @@
-<?php namespace Zizaco\Entrust\Traits;
+<?php
+
+namespace LucasQuinnGuru\Entrust\Traits;
 
 /**
  * This file is part of Entrust,
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Zizaco\Entrust
+ * @package LucasQuinnGuru\Entrust
  */
 
 use Illuminate\Support\Facades\Config;
@@ -23,7 +25,7 @@ trait EntrustPermissionTrait
     {
         parent::boot();
 
-        static::deleting(function($permission) {
+        static::deleting(function ($permission) {
             if (!method_exists(Config::get('entrust.permission'), 'bootSoftDeletes')) {
                 $permission->roles()->sync([]);
             }
@@ -39,7 +41,7 @@ trait EntrustPermissionTrait
      */
     public function roles()
     {
-        return $this->morphedByMany(Config::get('entrust.role'), "permissionable" );
+        return $this->morphedByMany(Config::get('entrust.role'), "permissionable");
     }
 
     /**
@@ -49,6 +51,6 @@ trait EntrustPermissionTrait
      */
     public function users()
     {
-        return $this->morphedByMany( Config::get( 'auth.providers.users.model'), "permissionable" );
+        return $this->morphedByMany(Config::get('auth.providers.users.model'), "permissionable");
     }
 }

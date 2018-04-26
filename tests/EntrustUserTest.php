@@ -1,12 +1,12 @@
 <?php
 
-use Zizaco\Entrust\Contracts\EntrustUserInterface;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
+use LucasQuinnGuru\Entrust\Contracts\EntrustUserInterface;
+use LucasQuinnGuru\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Cache\ArrayStore;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cache;
-use Zizaco\Entrust\Permission;
-use Zizaco\Entrust\Role;
+use LucasQuinnGuru\Entrust\Permission;
+use LucasQuinnGuru\Entrust\Role;
 use Mockery as m;
 
 class EntrustUserTest extends PHPUnit_Framework_TestCase
@@ -158,7 +158,7 @@ class EntrustUserTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testCanWithPlaceholderSupport ()
+    public function testCanWithPlaceholderSupport()
     {
         /*
         |------------------------------------------------------------
@@ -1101,12 +1101,11 @@ class EntrustUserTest extends PHPUnit_Framework_TestCase
         |------------------------------------------------------------
         */
         $user->detachRoles();
-
     }
 
     protected function mockPermission($permName)
     {
-        $permMock = m::mock('Zizaco\Entrust\Permission');
+        $permMock = m::mock('LucasQuinnGuru\Entrust\Permission');
         $permMock->name = $permName;
         $permMock->display_name = ucwords(str_replace('_', ' ', $permName));
         $permMock->id = 1;
@@ -1116,7 +1115,7 @@ class EntrustUserTest extends PHPUnit_Framework_TestCase
 
     protected function mockRole($roleName)
     {
-        $roleMock = m::mock('Zizaco\Entrust\Role');
+        $roleMock = m::mock('LucasQuinnGuru\Entrust\Role');
         $roleMock->name = $roleName;
         $roleMock->perms = [];
         $roleMock->permissions = [];
@@ -1134,13 +1133,14 @@ class HasRoleUser implements EntrustUserInterface
     public $primaryKey;
     public $id;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->primaryKey = 'id';
         $this->id = 4;
     }
 
     public function belongsToMany($role, $assignedRolesTable)
     {
-
+        //
     }
 }

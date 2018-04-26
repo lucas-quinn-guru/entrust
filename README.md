@@ -40,7 +40,7 @@ contains the latest entrust version for Laravel 4.
 1) In order to install Laravel 5 Entrust, just add the following to your composer.json. Then run `composer update`:
 
 ```json
-"zizaco/entrust": "5.2.x-dev"
+"LucasQuinnGuru/entrust": "5.2.x-dev"
 ```
 
 2) Open your `config/app.php` and add the following to the `providers` array:
@@ -532,7 +532,7 @@ When trying to use the EntrustUserTrait methods, you encounter the error which l
 
 then probably you don't have published Entrust assets or something went wrong when you did it.
 First of all check that you have the `entrust.php` file in your `config` directory.
-If you don't, then try `php artisan vendor:publish` and, if it does not appear, manually copy the `/vendor/zizaco/entrust/src/config/config.php` file in your config directory and rename it `entrust.php`.
+If you don't, then try `php artisan vendor:publish` and, if it does not appear, manually copy the `/vendor/lucase-quinn-guru/entrust/src/config/config.php` file in your config directory and rename it `entrust.php`.
 
 If your app uses a custom namespace then you'll need to tell entrust where your `permission` and `role` models are, you can do this by editing the config file in `config/entrust.php`
 

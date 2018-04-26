@@ -5,28 +5,12 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Zizaco Zizuini",
-            "email": "zizaco@gmail.com"
-        },
-        {
-            "name": "Andrew Elkins",
-            "homepage": "http://andrewelkins.com"
-        },
-        {
-            "name": "Ben Batschelet",
-            "homepage": "http://github.com/bbatsche"
-        },
-        {
-            "name": "Michele Angioni",
-            "email": "michele.angioni@gmail.com"
-        },
-        {
             "name": "Lucas Quinn",
             "email": "lucas.quinn@lucasquinn.guru"
         }
     ],
     "require": {
-        "php": ">=5.5.0",
+        "php": ">=7.1.0",
         "illuminate/console": "~5.0",
         "illuminate/support": "~5.0",
         "illuminate/cache": "~5.0"
